@@ -1,5 +1,6 @@
 class MarvelService {
     _apiBase = 'https://gateway.marvel.com:443/v1/public/'
+    // _apiKey = 'apikey=5ef8f994504e4cd5b226744fbc38f8ba'
     _apiKey = 'apikey=5c038bd6ce84d9ec6fa43f3dab859913'
 
     getResource = async (url) => {
@@ -13,22 +14,31 @@ class MarvelService {
     }
 
     getAllCharacters = async () => {
-        const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=210&${this._apiKey}`)
-        return res.data.results.map(this._transformCharacter)
+        const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=210&${this._apiKey}`);
+        return res.data.results.map(this._transformCharacter);
     }
 
     getCharacter = async (id) => {
         const res = await this.getResource(`${this._apiBase}characters/${id}?${this._apiKey}`)
-        return this._transformCharacter(res)
+        const character = this._transformCharacter(res.data.results[0]) 
+
+        if (character.description.length === 0) {
+            character.description = 'The hero is really cool, but not Deadpool :) lol'
+        }
+        if (character.description.length >= 200) {
+            character.description = `${character.description.slice(0, 180)}...And Bla-bla-bla, Deadpool is better.`
+        }
+
+        return character
     }
 
-    _transformCharacter = (res) => {
+    _transformCharacter = (character) => {
         return {
-            name: res.data.results[0].name,
-            description: res.data.results[0].description,
-            thumbnail: res.data.results[0].thumbnail.path + '.' + res.data.results[0].thumbnail.extension,
-            homepage: res.data.results[0].urls[0].url,
-            wiki: res.data.results[0].urls[1].url,
+            name: character.name,
+            description: character.description,
+            thumbnail: character.thumbnail.path + '.' + character.thumbnail.extension,
+            homepage: character.urls[0].url,
+            wiki: character.urls[1].url,
         }
     }
 }
