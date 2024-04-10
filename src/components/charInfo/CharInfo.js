@@ -91,7 +91,7 @@ const View = (props) => {
             <div className="char__comics">Comics:</div>
             <ul className="char__comics-list">
                 {props.character.comics.length === 0 ? (
-                    <li className="char__comics-item">This character doesn't have comics <br/> zero Carl, zero comics Caaarl.</li>
+                    <li className="char__comics-item">This character doesn't have comics. <br/> Zero Carl, zero comics Caaarl.</li>
                 ) : (
                     props.character.comics.slice(0, 11).map((value, index) => {
                         return (
