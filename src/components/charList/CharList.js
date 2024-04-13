@@ -6,6 +6,10 @@ import MarvelService from '../../services/MarvelService'
 import './charList.scss'
 
 class CharList extends Component {
+    constructor(props) {
+        super(props)
+        this.itemRefs = []
+    }
     state = {
         character: [],
         loading: true,
@@ -48,14 +52,35 @@ class CharList extends Component {
         this.setState({ loading: false, error: true })
     }
 
+    styleToSelectedCharacter = (ref) => {
+        this.itemRefs.forEach((itemRef) => {
+            if (itemRef.current) {
+                itemRef.current.classList.remove('char__item__selected')
+            }
+        })
+        if (ref.current) {
+            ref.current.classList.add('char__item__selected')
+        }
+    }
+
     renderItemsCharacter(arr) {
         const items = arr.map((item) => {
             let imgStyle = { objectFit: 'cover' }
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = { objectFit: 'unset' }
             }
+            const selectedRef = React.createRef()
+            this.itemRefs.push(selectedRef)
             return (
-                <li className="char__item" key={item.id} onClick={() => this.props.onCharacterSelected(item.id)}>
+                <li
+                    ref={selectedRef}
+                    className="char__item"
+                    key={item.id}
+                    onClick={() => {
+                        this.props.onCharacterSelected(item.id)
+                        this.styleToSelectedCharacter(selectedRef)
+                    }}
+                >
                     <img src={item.thumbnail} alt={item.name} style={imgStyle} />
                     <div className="char__name">{item.name}</div>
                 </li>

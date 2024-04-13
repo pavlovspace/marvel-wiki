@@ -18,7 +18,7 @@
         width: 200px;
         height: 318px;
         background-color: $dark;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, .25);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
         padding: 15px;
         cursor: pointer;
         transition: 0.3s transform;
@@ -28,7 +28,7 @@
             object-fit: cover;
             transform: translate(-15px, -15px);
         }
-        &_selected {
+        &__selected {
             box-shadow: 0 5px 20px $main-color;
             transform: translateY(-8px);
         }
