@@ -5,6 +5,7 @@ Thumbs.db
 *~
 *.tmp
 desktop.ini
+package-lock.json
 
 # Ignore local configuration files
 .idea/
