@@ -15,10 +15,9 @@ class MarvelService {
         return await res.json()
     }
 
-    getAllcomicss = async (offset = this._baseOffset) => {
+    getAllCharacters = async (offset = this._baseOffset) => {
         const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=${offset}&${this._apiKey}`)
-        console.log(res.data.results[0]);
-        return res.data.results.map(this._transformComics)
+        return res.data.results.map(this._transformCharacter)
     }
 
     getCharacter = async (id) => {
@@ -37,7 +36,7 @@ class MarvelService {
 
     getAllComics = async (offset = this._baseOffset) => {
         const res = await this.getResource(`${this._apiBase}comics?limit=8&offset=${offset}&${this._apiKey}`)
-        return res.data.results
+        return res.data.results.map(this._transformComics)
     }
 
     _transformCharacter = (character) => {

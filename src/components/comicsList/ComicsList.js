@@ -24,14 +24,6 @@ class ComicsList extends Component {
 
     componentDidMount() {
         this.onRequest()
-        this.marvelService
-        .getAllComics()
-        .then((res) => {
-            console.log(res[0].thumbnail.path+"."+res[0].thumbnail.extension)
-        })
-        .catch((error) => {
-            console.error(error)
-        })
     }
 
     onRequest = (offset) => {
@@ -73,7 +65,7 @@ class ComicsList extends Component {
             return (
                 <li ref={selectedRef} className="comics__item" key={item.id}>
                     <Link to={`/comics/${item.id}`}>
-                        <img src={item.thumbnail.path+"."+item.thumbnail.extension} alt={item.title} style={imgStyle} className="comics__item-img" />
+                        <img src={item.thumbnail} alt={item.title} style={imgStyle} className="comics__item-img" />
                         <div className="comics__item-name">{item.title}</div>
                         <div className="comics__item-price">{item.price}</div>
                     </Link>
@@ -108,79 +100,3 @@ class ComicsList extends Component {
 }
 
 export default ComicsList
-
-//         render() {
-//             return (
-// <>
-
-// </>
-//             )
-//
-
-// const ComicsList = () => {
-//     return (
-//         <div className="comics__list">
-//             <ul className="comics__grid">
-//                 <li className="comics__item">
-//                     <Link to={`/comics/{item.id}`}>
-//                         <img src={uw} alt="ultimate war" className="comics__item-img" />
-//                         <div className="comics__item-name">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</div>
-//                         <div className="comics__item-price">9.99$</div>
-//                     </Link>
-//                 </li>
-//                 <li className="comics__item">
-//                     <a href="#">
-//                         <img src={xMen} alt="x-men" className="comics__item-img" />
-//                         <div className="comics__item-name">X-Men: Days of Future Past</div>
-//                         <div className="comics__item-price">NOT AVAILABLE</div>
-//                     </a>
-//                 </li>
-//                 <li className="comics__item">
-//                     <a href="#">
-//                         <img src={uw} alt="ultimate war" className="comics__item-img" />
-//                         <div className="comics__item-name">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</div>
-//                         <div className="comics__item-price">9.99$</div>
-//                     </a>
-//                 </li>
-//                 <li className="comics__item">
-//                     <a href="#">
-//                         <img src={xMen} alt="x-men" className="comics__item-img" />
-//                         <div className="comics__item-name">X-Men: Days of Future Past</div>
-//                         <div className="comics__item-price">NOT AVAILABLE</div>
-//                     </a>
-//                 </li>
-//                 <li className="comics__item">
-//                     <a href="#">
-//                         <img src={uw} alt="ultimate war" className="comics__item-img" />
-//                         <div className="comics__item-name">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</div>
-//                         <div className="comics__item-price">9.99$</div>
-//                     </a>
-//                 </li>
-//                 <li className="comics__item">
-//                     <a href="#">
-//                         <img src={xMen} alt="x-men" className="comics__item-img" />
-//                         <div className="comics__item-name">X-Men: Days of Future Past</div>
-//                         <div className="comics__item-price">NOT AVAILABLE</div>
-//                     </a>
-//                 </li>
-//                 <li className="comics__item">
-//                     <a href="#">
-//                         <img src={uw} alt="ultimate war" className="comics__item-img" />
-//                         <div className="comics__item-name">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</div>
-//                         <div className="comics__item-price">9.99$</div>
-//                     </a>
-//                 </li>
-//                 <li className="comics__item">
-//                     <a href="#">
-//                         <img src={xMen} alt="x-men" className="comics__item-img" />
-//                         <div className="comics__item-name">X-Men: Days of Future Past</div>
-//                         <div className="comics__item-price">NOT AVAILABLE</div>
-//                     </a>
-//                 </li>
-//             </ul>
-//             <button className="button button__main button__long">
-//                 <div className="inner">load more</div>
-//             </button>
-//         </div>
-//     )
-// }
