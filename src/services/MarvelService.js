@@ -15,9 +15,10 @@ class MarvelService {
         return await res.json()
     }
 
-    getAllCharacters = async (offset = this._baseOffset) => {
+    getAllcomicss = async (offset = this._baseOffset) => {
         const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=${offset}&${this._apiKey}`)
-        return res.data.results.map(this._transformCharacter)
+        console.log(res.data.results[0]);
+        return res.data.results.map(this._transformComics)
     }
 
     getCharacter = async (id) => {
@@ -31,8 +32,12 @@ class MarvelService {
             character.description = `${character.description.slice(0, 180)}...And Bla-bla-bla, Deadpool is better.`
         }
 
-
         return character
+    }
+
+    getAllComics = async (offset = this._baseOffset) => {
+        const res = await this.getResource(`${this._apiBase}comics?limit=8&offset=${offset}&${this._apiKey}`)
+        return res.data.results
     }
 
     _transformCharacter = (character) => {
@@ -44,6 +49,15 @@ class MarvelService {
             homepage: character.urls[0].url,
             wiki: character.urls[1].url,
             comics: character.comics.items,
+        }
+    }
+
+    _transformComics = (comics) => {
+        return {
+            id: comics.id,
+            title: comics.title,
+            thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
+            prices: comics.prices.price
         }
     }
 }
