@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import { MainPage, ComicsPage, Page404 } from '../pages'
 import AppHeader from '../appHeader/AppHeader'
+import SingleComic from '../singleComic/SingleComic'
 
 class App extends Component {
     state = {
@@ -22,11 +23,13 @@ class App extends Component {
                     <AppHeader />
                     <main>
                         <Routes>
-                            <Route path="/" element={<MainPage />} />
+                            <Route exact path="/" element={<MainPage />} />
 
-                            <Route path="/comics" element={<ComicsPage />} />
+                            <Route exact path="/comics" element={<ComicsPage />} />
 
-                            <Route path="*" element={<Page404 />} />
+                            <Route exact path="/comics/:comicId" element={<SingleComic />} />
+
+                            <Route exact path="*" element={<Page404 />} />
                         </Routes>
                     </main>
                 </div>

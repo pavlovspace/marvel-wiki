@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Spinner from '../spinner/Spinner'
+
 import ErrorMessage from '../errorMessage/ErrorMessage'
-import Skeleton from '../skeleton/Skeleton'
 import MarvelService from '../../services/MarvelService'
+import Skeleton from '../skeleton/Skeleton'
 
 import './charInfo.scss'
 
@@ -17,7 +18,7 @@ class CharInfo extends Component {
         this.updateCharacter()
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (this.props.characterId !== prevProps.characterId) {
             this.updateCharacter()
         }
