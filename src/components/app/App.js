@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import AppHeader from '../appHeader/AppHeader'
-import RandomCharacter from '../randomCharacter/RandomCharacter'
-import CharList from '../charList/CharList'
-import CharInfo from '../charInfo/CharInfo'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import decoration from '../../resources/img/vision.png'
+import { MainPage, ComicsPage, Page404 } from '../pages'
+import AppHeader from '../appHeader/AppHeader'
+import SingleComic from '../singleComic/SingleComic'
 
 class App extends Component {
     state = {
@@ -19,17 +18,22 @@ class App extends Component {
 
     render() {
         return (
-            <div className="app">
-                <AppHeader />
-                <main>
-                    <RandomCharacter />
-                    <div className="char__content">
-                        <CharList onCharacterSelected={this.onCharacterSelected} />
-                        <CharInfo characterId={this.state.selectedCharacter}/>
-                    </div>
-                    <img className="bg-decoration" src={decoration} alt="vision" />
-                </main>
-            </div>
+            <Router>
+                <div className="app">
+                    <AppHeader />
+                    <main>
+                        <Routes>
+                            <Route exact path="/" element={<MainPage />} />
+
+                            <Route exact path="/comics" element={<ComicsPage />} />
+
+                            <Route exact path="/comics/:comicId" element={<SingleComic />} />
+
+                            <Route exact path="*" element={<Page404 />} />
+                        </Routes>
+                    </main>
+                </div>
+            </Router>
         )
     }
 }

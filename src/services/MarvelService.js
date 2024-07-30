@@ -31,8 +31,19 @@ class MarvelService {
             character.description = `${character.description.slice(0, 180)}...And Bla-bla-bla, Deadpool is better.`
         }
 
-
         return character
+    }
+
+    getAllComics = async (offset = this._baseOffset) => {
+        const res = await this.getResource(`${this._apiBase}comics?limit=8&offset=${offset}&${this._apiKey}`)
+        return res.data.results.map(this._transformComics)
+    }
+
+    getComic = async (id) => {
+        const res = await this.getResource(`${this._apiBase}comics/${id}?${this._apiKey}`)
+        const comic = this._transformComics(res.data.results[0])
+
+        return comic
     }
 
     _transformCharacter = (character) => {
@@ -44,6 +55,18 @@ class MarvelService {
             homepage: character.urls[0].url,
             wiki: character.urls[1].url,
             comics: character.comics.items,
+        }
+    }
+
+    _transformComics = (comics) => {
+        return {
+            id: comics.id,
+            title: comics.title,
+            description: comics.description || 'There is no description',
+            pageCount: comics.pageCount ? `${comics.pageCount} p.` : 'No information about the number of pages',
+            thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
+            language: comics.textObjects[0]?.language || 'en-us',
+            price: comics.prices[0].price ? `${comics.prices[0].price}$` : 'not available',
         }
     }
 }
